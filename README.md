@@ -56,8 +56,8 @@ namespace test2
 		}
 	}
 	</code></pre>
-##使用泛型的事件
-<code>
+## 使用泛型的事件
+<pre><code>
 	namespace test2
 {
 	public class MyEventArgs: EventArgs{
@@ -94,4 +94,4 @@ namespace test2
 		}
 	}
 }
-</code>
+</code></pre>
