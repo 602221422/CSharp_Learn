@@ -98,6 +98,7 @@ namespace test2
 
 ##Interface 接口
 <pre><code>
+//简单应用
 using System;
 namespace test2
 {
@@ -129,5 +130,48 @@ namespace test2
 			printInfo(b);
 		}
 	}
+}
+</code></pre>
+<pre><code>
+using System;
+namespace test2
+{
+	class Myclass: IComparable{
+		public int Value;
+		public int CompareTo(object obj){
+			Myclass mc= (Myclass)obj;
+			if(this.Value<mc.Value) return -1;
+			if(this.Value>mc.Value) return 1;
+			return 0;
+		}
+	}
+	class program{
+		static void PrintOut(string s,Myclass[] mc){
+			Console.Write(s);
+			foreach(var i in mc)
+				Console.Write("{0} ",i.Value);
+			Console.WriteLine(" ");
+		}
+		static void Main(){
+			var A= new[] {20,4,16,9,2};
+			Myclass[] mcArr=new Myclass[5];
+			for(int i=0;i<5;i++){
+				mcArr[i]=new Myclass();
+				mcArr[i].Value=A[i];
+			}
+			PrintOut("Initial Order:", mcArr);
+			Array.Sort(mcArr);
+			PrintOut("Sorted Order:", mcArr);
+		}
+	}
+	/*
+	class program{
+		static void Main(){
+		var myInt =new [] {20,4,16,9,2};
+		Array.Sort(myInt);
+		foreach(var i in myInt)
+			Console.WriteLine("{0}",i);
+		}
+	}*/
 }
 </code></pre>
