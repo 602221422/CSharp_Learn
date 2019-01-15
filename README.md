@@ -4,7 +4,7 @@
 - 是一个匿名函数，简化匿名委托的使用，减少代码量。
 - Lambda的运算符 => ，读作goes to, 运算符左侧为输入参数，右侧为表达式。x=>x*x，表示为 x goes to x times x。 
 Lambda表达式能把“一块代码”赋给了一个变量。而“这块代码”，或者说“这个被赋给一个变量的函数”，就是一个Lambda表达式。
-
+<pre><code>
 using System;  
 namespace Test1  
 {  
@@ -18,6 +18,7 @@ namespace Test1
 		}  
 	}  
 }  
+</code></pre>
 # delegate 委托
 - 实例：调用带返回值的委托（实参引参）
 using System;
