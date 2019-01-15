@@ -97,6 +97,8 @@ namespace test2
 </code></pre>
 
 ## Interface 接口
+- interface实现多继承，更好的实现封装性，使代码更加简洁美观。
+-接口只能由方法，属性，事件，索引器组成，没有数据类型，不实现其引用类型。
 - interface的简单应用
 <pre><code>
 using System;
@@ -207,6 +209,52 @@ namespace test2
 
 				}
 			}
+		}
+	}
+}
+</code></pre>
+
+## 泛型
+- 泛型类声明上的类型参数用于占位符，不是真正的类型。为多段代码执行指令相同，而数据类型不同而准备。  
+- c#五种泛型：delegate委托,interface接口,结构,类class,方法。前四种为类型，后一种为成员。
+<pre><code>
+using System;
+namespace test2
+{
+	class mystack<T>
+	{
+		T[] stackArray;
+		int stackPointer=0;
+		public void push(T x){
+			if(!mystackfull)
+				stackArray[stackPointer++]=x;}
+		public T pop(){
+			if(!mystackempty)
+				return stackArray[--stackPointer];
+			else
+				return stackArray[0];}
+		const int Maxstack=10;
+		public bool mystackfull {get {return stackPointer>=Maxstack;}}
+		public bool mystackempty {get {return stackPointer<=0;}}
+		public mystack(){stackArray=new T[Maxstack];}
+		public void Print(){
+			for(int i=stackPointer-1;i>=0;i--){
+				Console.WriteLine("  Value:{0}",stackArray[i]);}}
+	}
+	class Program{
+		static void Main(){
+			mystack<int> stackInt=new mystack<int>();
+			mystack<string> stackString = new mystack<string>();
+			stackInt.push(1);
+			stackInt.push(8);
+			stackInt.push(3);
+			stackInt.push(2);
+			stackInt.push(9);
+			stackInt.Print();
+			stackString.push("aaaa");
+			stackString.push("edws");
+			stackString.push("qqqq");
+			stackString.Print();
 		}
 	}
 }
