@@ -102,17 +102,17 @@ namespace test2
 using System;
 namespace test2
 {
-	interface iInfo{
+	interface IInfo{
 		string getname();
 		string getage();
 	}
-	class A : iInfo{
+	class A : IInfo{
 		public string name;
 		public int age;
 		public string getname(){ return name;}
 		public string getage(){return age.ToString();}
 	}
-	class B : iInfo{
+	class B : IInfo{
 		public string first;
 		public string last;
 		public double personsage;
@@ -173,5 +173,40 @@ namespace test2
 			Console.WriteLine("{0}",i);
 		}
 	}*/
+}
+</code></pre>
+
+<pre><code>
+using System;
+namespace test2
+{
+	interface Ilivebrith{
+		string BabyCalled();
+	}
+	class Animal{}
+	class dog : Animal,Ilivebrith{
+		string Ilivebrith.BabyCalled(){
+			return "kitten";}
+	}
+	class cat : Animal,Ilivebrith{
+		string Ilivebrith.BabyCalled(){
+			return "puppy";}
+	}
+	class bird : Animal{}
+	class Program{
+		static void Main(){
+			Animal[] animalArray = new Animal[3];
+			animalArray[0]=new cat();
+			animalArray[1]=new dog();
+			animalArray[2]=new bird();
+			foreach(Animal a in animalArray){
+				Ilivebrith b = a as Ilivebrith;
+				if(b!=null){
+					Console.WriteLine("baby is called: {0}",b.BabyCalled());
+
+				}
+			}
+		}
+	}
 }
 </code></pre>
