@@ -97,8 +97,8 @@ namespace test2
 </code></pre>
 
 ## Interface 接口
+- interface的简单应用
 <pre><code>
-//简单应用
 using System;
 namespace test2
 {
