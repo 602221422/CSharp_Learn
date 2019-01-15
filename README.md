@@ -133,6 +133,7 @@ namespace test2
 }
 </code></pre>
 <pre><code>
+- Icomparable接口应用
 using System;
 namespace test2
 {
@@ -177,6 +178,7 @@ namespace test2
 </code></pre>
 
 <pre><code>
+- 不同类实现一个接口
 using System;
 namespace test2
 {
