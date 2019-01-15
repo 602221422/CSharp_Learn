@@ -56,7 +56,7 @@ namespace test2
 		}
 	}
 	</code></pre>
-## 使用泛型的事件
+## 使用自定义类的泛型委托实现事件
 <pre><code>
 	namespace test2
 {
