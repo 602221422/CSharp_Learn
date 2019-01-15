@@ -21,6 +21,7 @@ namespace Test1
 </code></pre>
 # delegate 委托
 - 实例：调用带返回值的委托（实参引参）
+<pre><code>
 using System;
 namespace test2
 {
@@ -54,3 +55,4 @@ namespace test2
 			Console.WriteLine("t2:{0}",x);//引用传递改变原始参数值
 		}
 	}
+	</code></pre>
