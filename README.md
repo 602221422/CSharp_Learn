@@ -95,3 +95,39 @@ namespace test2
 	}
 }
 </code></pre>
+
+##Interface 接口
+<pre><code>
+using System;
+namespace test2
+{
+	interface iInfo{
+		string getname();
+		string getage();
+	}
+	class A : iInfo{
+		public string name;
+		public int age;
+		public string getname(){ return name;}
+		public string getage(){return age.ToString();}
+	}
+	class B : iInfo{
+		public string first;
+		public string last;
+		public double personsage;
+		public string getname(){return first +" " + last;}
+		public string getage(){return personsage.ToString();}
+	}
+	class program{
+		static void printInfo(iInfo item){
+			Console.WriteLine("Name:{0},age:{1}",item.getname(),item.getage());
+		}
+		static void Main(){
+			A a=new A(){name="a aa",age=22};
+			B b=new B(){first="b",last="cc",personsage=11};
+			printInfo(a);
+			printInfo(b);
+		}
+	}
+}
+</code></pre>
