@@ -56,3 +56,42 @@ namespace test2
 		}
 	}
 	</code></pre>
+##使用泛型的事件
+<code>
+	namespace test2
+{
+	public class MyEventArgs: EventArgs{
+		public int IterationCount{get;set;}
+	}
+	class Publisher{
+		public event EventHandler<MyEventArgs> CountedDozen; 
+		public void DoCount(){
+			MyEventArgs args = new MyEventArgs();
+			for(int i=1;i<100;i++)
+				if(i%12==0 && CountedDozen!=null){
+					args.IterationCount=i;
+					CountedDozen(this,args);
+				}
+		}
+	}
+	class Subscriber{
+		public int DozensCount{get;private set;}
+		public Subscriber(Publisher publisher){
+			DozensCount=0;
+			publisher.CountedDozen += PublisherDozensCount;
+		}
+		void PublisherDozensCount(object source, MyEventArgs e){
+			DozensCount++;
+			Console.WriteLine("{0}in{1}",e.IterationCount,source.ToString());
+		}
+	}
+	class program{
+		static void Main(){
+			Publisher publisher=new Publisher();
+			Subscriber subscriber=new Subscriber(publisher);
+			publisher.DoCount();
+			Console.WriteLine("Number of dozens = {0} ",subscriber.DozensCount);
+		}
+	}
+}
+</code>
