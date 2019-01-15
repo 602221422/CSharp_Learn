@@ -217,6 +217,7 @@ namespace test2
 ## 泛型
 - 泛型类声明上的类型参数用于占位符，不是真正的类型。为多段代码执行指令相同，而数据类型不同而准备。  
 - c#五种泛型：delegate委托,interface接口,结构,类class,方法。前四种为类型，后一种为成员。
+- 使用泛型的栈的实例
 <pre><code>
 using System;
 namespace test2
