@@ -5,3 +5,51 @@
 - Lambda的运算符 => ，读作goes to, 运算符左侧为输入参数，右侧为表达式。x=>x*x，表示为 x goes to x times x。 
 Lambda表达式能把“一块代码”赋给了一个变量。而“这块代码”，或者说“这个被赋给一个变量的函数”，就是一个Lambda表达式。
 
+using System;
+namespace Test1
+{
+	delegate int Test(int x);
+	class Program{
+		static void Main(){
+			Test t1=delegate(int x){ return x+1;};
+			Test t2=x=>x+1;
+			Console.WriteLine("{0}",t1(1));
+			Console.WriteLine("{0}",t2(2));
+		}
+	}
+}
+#delegate 委托
+-实例：调用带返回值的委托（实参引参）
+using System;
+namespace test2
+{
+	delegate int Test(int x); //实参
+	delegate void Test2(ref int x);//引用参数
+	class Myclass{
+		public int Add2(int a){a+=2;return a;}
+		public int Add3(int a){a+=3;return a;}
+		public int Add4(int a){a+=4;return a;}
+	}
+	class Myclass2{
+		public void Add2(ref int a){a+=2;}
+		public void Add3(ref int a){a+=3;}
+		public void Add4(ref int a){a+=4;}
+	}
+	class Program{
+		static void Main(){
+			Myclass mc=new Myclass();
+			Myclass2 mc2 =new Myclass2();
+			Test t1=mc.Add2;
+			t1 += mc.Add3;
+			t1 += mc.Add4;
+			Test2 t2=mc2.Add2;
+			t2 += mc2.Add3;
+			t2 += mc2.Add4;
+			int x=5,y=5;
+			t1(y);
+			t2(ref x);
+			Console.WriteLine("t1(y):{0}",t1(y));//调用带返回值的委托，返回最后一个方法的值
+			Console.WriteLine("t1:{0}",y);//实参传递不改变参数值
+			Console.WriteLine("t2:{0}",x);//引用传递改变原始参数值
+		}
+	}
