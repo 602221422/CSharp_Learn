@@ -260,3 +260,96 @@ namespace test2
 	}
 }
 </code></pre>
+## 异步
+<pre><code>
+//非异步程序
+using System;
+using System.Net;
+using System.Diagnostics;
+
+class MyDownloadString
+{
+    Stopwatch sw = new Stopwatch();
+    public void DoRun()
+    {
+        const int LargeNumber = 6000000;
+        sw.Start();
+        int t1 = CountCharacters(1, "http://www.microsoft.com");
+        int t2 = CountCharacters(2, "http://www.baidu.com");
+        CountToALargeNumber(1, LargeNumber);
+        CountToALargeNumber(2, LargeNumber);
+        CountToALargeNumber(3, LargeNumber);
+        CountToALargeNumber(4, LargeNumber);
+
+        Console.WriteLine("Chars in http://www.microsoft.com   : {0}", t1);
+        Console.WriteLine("Chars in http://www.baidu.com   : {0}", t2);
+    }
+    private int CountCharacters(int id, string uriString)
+    {
+        WebClient wc1 = new WebClient();
+        Console.WriteLine("String call {0}   :  {1, 4:N0}  ms", id, sw.Elapsed.TotalMilliseconds);
+        string result = wc1.DownloadString(new Uri(uriString));
+        Console.WriteLine("  Call {0} completed:  {1, 4:N0}  ms", id, sw.Elapsed.TotalMilliseconds);
+        return result.Length;
+    }
+    private void CountToALargeNumber(int id, int value)
+    {
+        for (long i = 0; i < value; i++)
+            ;
+        Console.WriteLine("  End counting {0} :   {1, 4:N0} ms", id, sw.Elapsed.TotalMilliseconds);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        MyDownloadString ds = new MyDownloadString();
+        ds.DoRun();
+    }
+}
+</code></pre>
+
+- CancellactionTaken,CancellctionTakenSource
+<pre><code>
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    static void Main()
+    {
+        CancellationTokenSource cts = new CancellationTokenSource();
+        CancellationToken Token = cts.Token;
+        Myclass mc = new Myclass();
+        Task t = mc.RunAsync(Token);
+        Thread.Sleep(3000);
+        cts.Cancel();
+        t.Wait();
+        Console.WriteLine("Was Cancelled: {0}", Token.IsCancellationRequested);
+
+    }
+}
+class Myclass
+{
+    public async Task RunAsync(CancellationToken ct)
+    {
+        if (ct.IsCancellationRequested)
+            return;
+        await Task.Run(() => CycleMethod(ct),ct);//在线程上工作，并返回Task对象，可使用取消标记来取消线程
+    }
+    void CycleMethod(CancellationToken ct)
+    {
+        Console.WriteLine("Strating CycleMethod");
+        const int max = 5;
+        for(int i = 0; i < 5; i++)
+        {
+            if (ct.IsCancellationRequested)
+                return;
+            Thread.Sleep(1000);
+            Console.WriteLine("{0}of{1} iterations completed", i + 1, max);
+        }
+    }
+}
+</code></pre>
